@@ -127,14 +127,18 @@ button.onclick = function () {
 
   totalBikeDistanceElement.innerHTML = getTotalKm(bikeActivities) + " km";
   totalOtherDistanceElement.innerHTML = getTotalKm(otherActivities) + " km";
+
+  document.querySelectorAll("h4").forEach((item) => (item.hidden = false));
+  document.querySelectorAll("h3").forEach((item) => (item.hidden = false));
   bikeLeaderboardElement.innerHTML = "";
+
   bikeLeaderboard.forEach((athlete) => {
     bikeLeaderboardElement.innerHTML +=
       "<tr><td>" +
       athlete.name +
       "</td><td>" +
       athlete.distance.toFixed(2) +
-      "</td></tr>";
+      " km</td></tr>";
   });
   otherLeaderboardElement.innerHTML = "";
   otherLeaderboard.forEach((athlete) => {
@@ -143,6 +147,6 @@ button.onclick = function () {
       athlete.name +
       "</td><td>" +
       athlete.distance.toFixed(2) +
-      "</td></tr>";
+      " km</td></tr>";
   });
 };
