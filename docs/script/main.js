@@ -87,25 +87,24 @@ const otherLeaderboardElement = document.getElementById("otherLeaderboard");
 
 button.onclick = function () {
   if (!allActivities) alert("Upload a csv and chose a month.");
-  var monthToShow = new Date(month.value);
-  monthToShow = monthToShow.getMonth();
-  console.log(allActivities);
+  var monthToShow = new Date(month.value).getMonth();
   var allActivitiesByMonth = filterActivitiesByMonth(
     allActivities,
     monthToShow
   );
+
   bikeActivities = filterActivitesByType(allActivitiesByMonth, "Ride");
   otherActivities = filterActivitesByTypeNegated(allActivitiesByMonth, "Ride");
-  console.log(allActivitiesByMonth);
-  console.log(bikeActivities);
-  console.log(otherActivities);
-  console.log(getTotalKm(bikeActivities));
-  console.log(getTotalKm(otherActivities));
-  console.log(getTotalKm(allActivities));
   bikeLeaderboard = createLeaderboard(bikeActivities);
   otherLeaderboard = createLeaderboard(otherActivities);
-  console.log(bikeLeaderboard);
-  console.log(otherLeaderboard);
+  // console.log(allActivitiesByMonth);
+  // console.log(bikeActivities);
+  // console.log(otherActivities);
+  // console.log(getTotalKm(bikeActivities));
+  // console.log(getTotalKm(otherActivities));
+  // console.log(getTotalKm(allActivities));
+  // console.log(bikeLeaderboard);
+  // console.log(otherLeaderboard);
 
   totalBikeDistanceElement.innerHTML = getTotalKm(bikeActivities) + " km";
   totalOtherDistanceElement.innerHTML = getTotalKm(otherActivities) + " km";
