@@ -1,22 +1,3 @@
-// document.addEventListener("DOMContentLoaded", function () {
-//   document
-//     .getElementById("csvFileInput")
-//     .addEventListener("change", function (e) {
-//       var file = e.target.files[0];
-//       if (file) {
-//         Papa.parse(file, {
-//           header: true,
-//           complete: function (results) {
-//             var jsonData = results.data;
-//             console.log(jsonData);
-//             // Do further processing with the JSON data
-//             // ...
-//           },
-//         });
-//       }
-//     });
-// });
-
 // ===============================================
 // variables
 // ===============================================
@@ -105,6 +86,7 @@ const bikeLeaderboardElement = document.getElementById("bikeLeaderboard");
 const otherLeaderboardElement = document.getElementById("otherLeaderboard");
 
 button.onclick = function () {
+  if (!allActivities) alert("Upload a csv and chose a month.");
   var monthToShow = new Date(month.value);
   monthToShow = monthToShow.getMonth();
   console.log(allActivities);
