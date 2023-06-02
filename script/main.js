@@ -60,7 +60,10 @@ fileInput.addEventListener("change", (e) => {
       console.log(getTotalKm(bikeActivities));
       console.log(getTotalKm(otherActivities));
       console.log(getTotalKm(allActivities));
-      createLeaderboard(bikeActivities);
+      bikeLeaderboard = createLeaderboard(bikeActivities);
+      otherLeaderboard = createLeaderboard(otherActivities);
+      console.log(bikeLeaderboard);
+      console.log(otherLeaderboard);
     },
   });
 });
@@ -69,6 +72,7 @@ fileInput.addEventListener("change", (e) => {
 // Processing
 // ===============================================
 function filterActivitiesByMonth(activities, month) {
+  if (month === 0) return activities;
   return activities.filter(
     (activity) => new Date(activity["Date"]).getMonth() == month - 1
   );
@@ -79,9 +83,7 @@ function filterActivitesByType(activities, type) {
 }
 
 function filterActivitesByTypeNegated(activites, type) {
-  return activites.filter(
-    (activity) => activity["Typ"] != type && activity["Typ"] != "unknown"
-  );
+  return activites.filter((activity) => activity["Typ"] != type);
 }
 
 function getTotalKm(activites) {
@@ -95,9 +97,25 @@ function getTotalKm(activites) {
 function createLeaderboard(activities) {
   var athletes = [];
   activities.forEach((activity) => {
-    var athlete = { name: activity.Name, distance: activity.Distance };
-    console.log(athlete);
+    var athlete = athletes.find((a) => a.name === activity.Name);
+    if (athlete) {
+      athlete.distance += activity.Distance;
+    } else {
+      var newAthlete = {
+        name: activity.Name,
+        distance: activity.Distance,
+      };
+      athletes.push(newAthlete);
+    }
   });
-
-  console.log(athletes);
+  return athletes.sort((a1, a2) => a2.distance - a1.distance);
 }
+
+const month = document.getElementById("monthInput");
+const button = document.getElementById("btnShow");
+const div = document.getElementById("test");
+button.onclick = function () {
+  console.log("clicked");
+  var date = new Date(month.value);
+  div.innerHTML = date.getMonth();
+};
