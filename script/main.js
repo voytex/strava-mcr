@@ -50,20 +50,6 @@ fileInput.addEventListener("change", (e) => {
     complete: (results) => {
       console.log(results);
       allActivities = results.data;
-      console.log(allActivities);
-      allActivities = filterActivitiesByMonth(allActivities, 5);
-      bikeActivities = filterActivitesByType(allActivities, "Ride");
-      otherActivities = filterActivitesByTypeNegated(allActivities, "Ride");
-      console.log(allActivities);
-      console.log(bikeActivities);
-      console.log(otherActivities);
-      console.log(getTotalKm(bikeActivities));
-      console.log(getTotalKm(otherActivities));
-      console.log(getTotalKm(allActivities));
-      bikeLeaderboard = createLeaderboard(bikeActivities);
-      otherLeaderboard = createLeaderboard(otherActivities);
-      console.log(bikeLeaderboard);
-      console.log(otherLeaderboard);
     },
   });
 });
@@ -74,7 +60,7 @@ fileInput.addEventListener("change", (e) => {
 function filterActivitiesByMonth(activities, month) {
   if (month === 0) return activities;
   return activities.filter(
-    (activity) => new Date(activity["Date"]).getMonth() == month - 1
+    (activity) => new Date(activity["Date"]).getMonth() == month
   );
 }
 
@@ -113,9 +99,50 @@ function createLeaderboard(activities) {
 
 const month = document.getElementById("monthInput");
 const button = document.getElementById("btnShow");
-const div = document.getElementById("test");
+const totalBikeDistanceElement = document.getElementById("totalBikeDistance");
+const totalOtherDistanceElement = document.getElementById("totalOtherDistance");
+const bikeLeaderboardElement = document.getElementById("bikeLeaderboard");
+const otherLeaderboardElement = document.getElementById("otherLeaderboard");
+
 button.onclick = function () {
-  console.log("clicked");
-  var date = new Date(month.value);
-  div.innerHTML = date.getMonth();
+  var monthToShow = new Date(month.value);
+  monthToShow = monthToShow.getMonth();
+  console.log(allActivities);
+  var allActivitiesByMonth = filterActivitiesByMonth(
+    allActivities,
+    monthToShow
+  );
+  bikeActivities = filterActivitesByType(allActivitiesByMonth, "Ride");
+  otherActivities = filterActivitesByTypeNegated(allActivitiesByMonth, "Ride");
+  console.log(allActivitiesByMonth);
+  console.log(bikeActivities);
+  console.log(otherActivities);
+  console.log(getTotalKm(bikeActivities));
+  console.log(getTotalKm(otherActivities));
+  console.log(getTotalKm(allActivities));
+  bikeLeaderboard = createLeaderboard(bikeActivities);
+  otherLeaderboard = createLeaderboard(otherActivities);
+  console.log(bikeLeaderboard);
+  console.log(otherLeaderboard);
+
+  totalBikeDistanceElement.innerHTML = getTotalKm(bikeActivities) + " km";
+  totalOtherDistanceElement.innerHTML = getTotalKm(otherActivities) + " km";
+  bikeLeaderboardElement.innerHTML = "";
+  bikeLeaderboard.forEach((athlete) => {
+    bikeLeaderboardElement.innerHTML +=
+      "<tr><td>" +
+      athlete.name +
+      "</td><td>" +
+      athlete.distance.toFixed(2) +
+      "</td></tr>";
+  });
+  otherLeaderboardElement.innerHTML = "";
+  otherLeaderboard.forEach((athlete) => {
+    otherLeaderboardElement.innerHTML +=
+      "<tr><td>" +
+      athlete.name +
+      "</td><td>" +
+      athlete.distance.toFixed(2) +
+      "</td></tr>";
+  });
 };

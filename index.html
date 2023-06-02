@@ -3,15 +3,29 @@
   <head>
     <title>Strava MCR</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
-
-    <!-- <script src="./script/main.js"></script> -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-dark.css"
+      integrity="sha512-6TNeuM0qy53coeyqVAiTdCjcBi26zGhbvVIjTOLNI0lcWW0Aoa3/TwMcPWNSjbmmK8nsCowwKIp9gnBCi4J3YQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
   <body>
     <h1>Strava Monthly Club Reports</h1>
     <input type="file" id="csvFileInput" />
     <input type="month" id="monthInput" placeholder="YYYY-MM" />
-    <button id="btnShow">Show</button>
-    <div id="test"></div>
+    <button id="btnShow">Show</button><br /><br />
+    <label for="totalBikeDistance">Total Bike Distance</label>
+    <h2 id="totalBikeDistance"></h2>
+    <br /><br />
+    <label for="totalOtherDistance">Total Other-Activites Distance</label>
+    <h2 id="totalOtherDistance"></h2>
+    <label for="bikeLeaderboard"> Bike Activity Leaderboard </label>
+    <table id="bikeLeaderboard"></table>
+    <br /><br />
+    <label for="otherLeaderboard"> Other Activity Leaderboard </label>
+    <table id="otherLeaderboard"></table>
   </body>
   <script src="./script/main.js"></script>
 </html>
