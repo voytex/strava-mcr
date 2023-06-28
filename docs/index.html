@@ -24,6 +24,11 @@
           padding: 15px;
         }
       }
+
+      input[type="checkbox"] {
+        margin-left: 10px;
+        margin-right: 3px;
+      }
     </style>
   </head>
   <body style="background-color: black">
@@ -49,6 +54,10 @@
       <h2>Report</h2>
       <input type="file" accept=".csv" id="csvFileInput" />
       <input type="month" id="monthInput" placeholder="YYYY-MM" />
+      <input type="checkbox" id="cummulativeCheckobx" /><label
+        for="cummmulativeCheckbox"
+        >Cummulative</label
+      >
       <button style="font-size: larger" id="btnShow">Show</button>
       <h3 hidden>Total Distances</h3>
       <h4 hidden>Total Bike Distance</h4>
