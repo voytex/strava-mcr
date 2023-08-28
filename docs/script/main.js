@@ -39,20 +39,6 @@ fileInput.addEventListener("change", (e) => {
       },
     });
   });
-
-  // Papa.parse(fileList, {
-  //   header: true,
-  //   transformHeader: (field) => {
-  //     // Weird bug with "Type" key...
-  //     if (field.trim() === '"Type"') return "Typ";
-  //     else return field;
-  //   },
-  //   dynamicTyping: true,
-  //   complete: (results) => {
-  //     console.log(results);
-  //     allActivities = results.data;
-  //   },
-  // });
 });
 
 // ===============================================
@@ -129,14 +115,6 @@ button.onclick = function () {
   otherActivities = filterActivitesByTypeNegated(allActivitiesByMonth, "Ride");
   bikeLeaderboard = createLeaderboard(bikeActivities);
   otherLeaderboard = createLeaderboard(otherActivities);
-  // console.log(allActivitiesByMonth);
-  // console.log(bikeActivities);
-  // console.log(otherActivities);
-  // console.log(getTotalKm(bikeActivities));
-  // console.log(getTotalKm(otherActivities));
-  // console.log(getTotalKm(allActivities));
-  // console.log(bikeLeaderboard);
-  // console.log(otherLeaderboard);
 
   totalBikeDistanceElement.innerHTML = getTotalKm(bikeActivities) + " km";
   totalOtherDistanceElement.innerHTML = getTotalKm(otherActivities) + " km";
