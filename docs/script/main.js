@@ -1,7 +1,8 @@
 // ===============================================
 // variables
 // ===============================================
-var allActivities,
+var parsedData,
+  allActivities,
   bikeActivities,
   otherActivities,
   totalBikeKm,
@@ -14,25 +15,46 @@ var allActivities,
 // ===============================================
 const fileInput = document.getElementById("csvFileInput");
 fileInput.addEventListener("change", (e) => {
-  var file = e.target.files[0];
-  console.log(file);
-  if (!file) {
+  var fileList = [];
+  parsedData = [];
+  for (var i = 0; i < e.target.files.length; i++) {
+    fileList.push(e.target.files[i]);
+  }
+  //console.log(fileList);
+  if (!fileList) {
     alert("Invalid or missing file!");
     return;
   }
-  Papa.parse(file, {
-    header: true,
-    transformHeader: (field) => {
-      // Wird bug with "Type" key...
-      if (field.trim() === '"Type"') return "Typ";
-      else return field;
-    },
-    dynamicTyping: true,
-    complete: (results) => {
-      console.log(results);
-      allActivities = results.data;
-    },
+  fileList.forEach((file) => {
+    Papa.parse(file, {
+      header: true,
+      transformHeader: (field) => {
+        // Weird bug with "Type" key...
+        if (field.trim() === '"Type"') return "Typ";
+        else return field;
+      },
+      dynamicTyping: true,
+      complete: (results) => {
+        parsedData.push(...results.data);
+        //console.log(results);
+        console.log(parsedData);
+      },
+    });
   });
+
+  // Papa.parse(fileList, {
+  //   header: true,
+  //   transformHeader: (field) => {
+  //     // Weird bug with "Type" key...
+  //     if (field.trim() === '"Type"') return "Typ";
+  //     else return field;
+  //   },
+  //   dynamicTyping: true,
+  //   complete: (results) => {
+  //     console.log(results);
+  //     allActivities = results.data;
+  //   },
+  // });
 });
 
 // ===============================================
@@ -93,6 +115,10 @@ const otherLeaderboardElement = document.getElementById("otherLeaderboard");
 const cummulativeCheckbox = document.getElementById("cummulativeCheckobx");
 
 button.onclick = function () {
+  allActivities = parsedData.filter((item, index) => {
+    return parsedData.indexOf(item) == index;
+  });
+  console.log(allActivities);
   if (!allActivities) alert("Upload a csv and chose a month.");
   var monthToShow = new Date(month.value).getMonth();
   var allActivitiesByMonth = filterActivitiesByMonth(
