@@ -36,8 +36,6 @@ fileInput.addEventListener("change", (e) => {
       dynamicTyping: true,
       complete: (results) => {
         parsedData.push(...results.data);
-        console.log(results);
-        console.log(parsedData);
       },
     });
   });
