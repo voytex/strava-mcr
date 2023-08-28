@@ -36,7 +36,7 @@ fileInput.addEventListener("change", (e) => {
       dynamicTyping: true,
       complete: (results) => {
         parsedData.push(...results.data);
-        //console.log(results);
+        console.log(results);
         console.log(parsedData);
       },
     });
@@ -115,10 +115,9 @@ const otherLeaderboardElement = document.getElementById("otherLeaderboard");
 const cummulativeCheckbox = document.getElementById("cummulativeCheckobx");
 
 button.onclick = function () {
-  allActivities = parsedData.filter((item, index) => {
-    return parsedData.indexOf(item) == index;
-  });
-  console.log(allActivities);
+  allActivities = parsedData.filter(
+    (v, i, a) => a.findIndex((v2) => v2.Activity === v.Activity) === i
+  );
   if (!allActivities) alert("Upload a csv and chose a month.");
   var monthToShow = new Date(month.value).getMonth();
   var allActivitiesByMonth = filterActivitiesByMonth(
@@ -126,6 +125,7 @@ button.onclick = function () {
     monthToShow,
     cummulativeCheckbox.checked
   );
+  console.log(allActivitiesByMonth);
 
   bikeActivities = filterActivitesByType(allActivitiesByMonth, "Ride");
   otherActivities = filterActivitesByTypeNegated(allActivitiesByMonth, "Ride");
